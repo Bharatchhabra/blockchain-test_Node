@@ -10,7 +10,7 @@ const SocketActions  = require('./constants');
 
 const socketListeners = require('./socketListeners');
 
-const { PORT } = process.env;
+const { PORT } = process.env || 3000;
 
 const blockChain = new BlockChain(null, io);
 
@@ -54,4 +54,6 @@ io.on('connection', (socket) => {
 
 blockChain.addNode(socketListeners(client(`http://localhost:${PORT}`), blockChain));
 
-httpServer.listen(PORT, () => console.info(`Express server running on ${PORT}...`));
+httpServer.listen(PORT, () => console.info("Express server running on:"+PORT));
+
+// pm2 startOrReload ecosystem.json --update-env && npm run logs
